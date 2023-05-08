@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CRUDController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Route::resource('przedmioty', CRUDController::class)->except(['store', 'update']);
+
+Route::controller(CRUDController::class)->prefix('przedmioty')->group(function() {
+    Route::get('/wszystkie', 'index');
+    Route::get('/dodaj-przedmiot', 'create');
+    Route::get('/{id}', 'show');
+    Route::get('/{id}/edytuj', 'edit');
+    Route::get('/{id}/usun', 'destroy');
+  });
